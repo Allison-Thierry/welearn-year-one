@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A celebration of WeLearn's first year at RGIS.">
+  <meta name="theme-color" content="#091317">
+  <title>WeLearn — Year One</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="brandbar" aria-label="RGIS">
+    <img src="assets/rgis-white.png" alt="RGIS">
+  </header>
+  <div class="scroll-guide" aria-hidden="true">
+    <span>Scroll</span>
+    <i></i>
+    <b>↓</b>
+  </div>
+  <div class="jennifer-dimmer" aria-hidden="true"></div>
+
+  <main>
+    <section class="opening" id="opening" aria-labelledby="opening-title">
+      <div class="opening-light" aria-hidden="true"></div>
+      <div class="opening-confetti" id="opening-confetti" aria-hidden="true">
+        <img class="confetti-burst confetti-from-left" data-src="assets/confetti-goes-right.gif" alt="">
+        <img class="confetti-burst confetti-from-right" data-src="assets/confetti-goes-left.gif" alt="">
+      </div>
+      <button class="bulb-switch" id="bulb-switch" type="button" aria-label="Click to light up WeLearn">
+        <span class="bulb-visual" aria-hidden="true">
+          <img class="bulb bulb-unlit" src="assets/welearn-unlit.png" alt="">
+          <img class="bulb bulb-lit" src="assets/welearn-lit.png" alt="">
+        </span>
+        <span class="switch-instruction">Click to light it up</span>
+      </button>
+
+      <div class="opening-copy" id="opening-copy" aria-live="polite">
+        <p class="eyebrow">One bright year</p>
+        <h1 id="opening-title">WeLearn is one year old!</h1>
+        <p class="birthday-line">Happy Birthday!</p>
+        <p>Let's look back at our first year.</p>
+        <a class="down-link" href="#learners" aria-label="Continue to the first interaction">↓</a>
+      </div>
+    </section>
+
+    <div class="journey" id="journey">
+      <div class="timeline" aria-hidden="true">
+        <div class="timeline-base"></div>
+        <div class="timeline-live" id="timeline-live"></div>
+        <div class="timeline-pulse" id="timeline-pulse"></div>
+      </div>
+
+      <section class="chapter is-locked" id="learners" data-stage="1" aria-labelledby="learners-title">
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner compact">
+          <p class="chapter-number">01</p>
+          <h2 id="learners-title">Any idea how many learners joined us?</h2>
+          <p class="chapter-prompt">Take a guess.</p>
+          <div class="number-bubbles" id="learner-options" aria-label="Learner number options"></div>
+          <div class="reveal-block" id="learner-reveal" aria-live="polite" hidden>
+            <strong>11,275 learners</strong>
+            <span>Not bad for Year One.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter is-locked map-chapter" id="countries" data-stage="2" aria-labelledby="countries-title">
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner wide">
+          <p class="chapter-number">02</p>
+          <h2 id="countries-title">How far did WeLearn travel this year?</h2>
+          <p class="chapter-prompt">Light up every country where WeLearn is live.</p>
+
+          <div class="map-game-layout">
+            <div class="map-wrap" id="map-wrap">
+              <svg id="world-map" role="img" aria-label="Interactive world map"></svg>
+            </div>
+            <aside class="map-side" aria-label="Map progress and country list">
+              <div class="map-toolbar">
+                <span class="map-progress" id="map-progress" aria-live="polite">0 / ?</span>
+                <span class="map-status" id="map-status">Choose a country to begin.</span>
+              </div>
+              <div class="map-result" id="map-result" aria-live="polite" hidden>
+                <strong id="map-result-title">27 countries</strong>
+                <span id="map-result-special"></span>
+                <p>WeLearn really gets around.</p>
+                <button class="text-button" id="map-retry" type="button"><span aria-hidden="true">↻</span> Try the map again</button>
+              </div>
+              <ol class="country-list" id="country-list" aria-label="Countries where WeLearn is live" hidden></ol>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter is-locked language-chapter" id="languages" data-stage="3" aria-labelledby="languages-title">
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner compact">
+          <p class="chapter-number">03</p>
+          <h2 id="languages-title">How many languages does WeLearn speak so far?</h2>
+          <div class="translation-stage">
+            <span class="translation-count" id="translation-count">01 / 10</span>
+            <p class="translation-phrase" id="translation-phrase" lang="en">Welcome to WeLearn</p>
+            <span class="translation-language" id="translation-language">English</span>
+            <button class="primary-button" id="translate-button" type="button">Translate</button>
+            <div class="translation-echoes" id="translation-echoes" aria-hidden="true"></div>
+          </div>
+          <div class="reveal-block" id="language-reveal" aria-live="polite" hidden>
+            <strong>10 languages</strong>
+            <span>And we're not done talking. 👀</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter is-locked learning-chapter" id="learning" data-stage="4" aria-labelledby="learning-title">
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner compact">
+          <p class="chapter-number">04</p>
+          <h2 id="learning-title">So, how much learning actually happened?</h2>
+          <p class="chapter-prompt">Guess how many lessons were completed this year.</p>
+          <div class="hold-stage">
+            <output class="guess-number" id="guess-number" aria-live="polite">0</output>
+            <button class="hold-button" id="hold-button" type="button">
+              <span class="hold-ring" aria-hidden="true"></span>
+              <span>Hold to guess</span>
+            </button>
+          </div>
+          <div class="learning-result" id="learning-result" aria-live="polite" hidden>
+            <p class="actual-lessons">112,466 <span>lessons completed</span></p>
+            <p class="cheeky-line">Yeah. We've been busy.</p>
+            <div class="minutes-result">
+              <strong id="minutes-counter">0</strong>
+              <span>minutes of learning</span>
+            </div>
+            <p class="nonstop-line">That's 560 days. Non-stop.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter is-locked catalogue-chapter" id="catalogue" data-stage="5" aria-labelledby="catalogue-title">
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner wide">
+          <p class="chapter-number">05</p>
+          <h2 id="catalogue-title">And what were they learning?</h2>
+          <p class="chapter-prompt">Our catalogue has been keeping busy too.</p>
+
+          <div class="catalogue-window">
+            <div class="catalogue-window-bar">
+              <span>Global Package</span>
+              <span class="catalogue-live-count" id="catalogue-live-count">40 lessons</span>
+            </div>
+            <div class="catalogue-era-overlay" id="catalogue-era-overlay" aria-hidden="true">
+              <span>Launch day</span>
+              <strong>40 lessons</strong>
+              <small>This is where the Global Package started.</small>
+            </div>
+            <div class="catalogue-wall" id="catalogue-wall" aria-label="WeLearn catalogue course cards"></div>
+            <div class="catalogue-shadow" aria-hidden="true"></div>
+          </div>
+
+          <div class="catalogue-control">
+            <div class="catalogue-labels">
+              <strong>THEN — 40 lessons</strong>
+              <strong>NOW — 98 lessons</strong>
+            </div>
+            <input id="catalogue-slider" type="range" min="40" max="98" value="40" step="1" aria-label="Move from the launch catalogue to today's catalogue">
+            <p class="slider-instruction">Slide from launch day to now.</p>
+          </div>
+
+          <div class="catalogue-reveal" id="catalogue-reveal" aria-live="polite" hidden>
+            <p class="catalogue-punchline">We may have added a few things.</p>
+            <div class="local-lessons-note">
+              <span>Oh, and that's just the Global Package.</span>
+              <strong>50 more lessons</strong>
+              <span>were created by the IPIT team for local content.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter is-locked spotlight-chapter" id="spotlight" data-stage="6" aria-labelledby="spotlight-title">
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner wide">
+          <p class="chapter-number">06</p>
+          <h2 id="spotlight-title">Every lesson has its moment.</h2>
+          <p class="chapter-prompt">Here are a few that stood out this year.</p>
+          <p class="pick-card">Pick a card.</p>
+          <div class="spotlight-grid" id="spotlight-grid"></div>
+          <p class="spotlight-hint" id="spotlight-hint" aria-live="polite">One reveal is all it takes to keep the light moving.</p>
+        </div>
+      </section>
+
+      <section class="chapter is-locked ending-chapter" id="ending" data-stage="7" aria-labelledby="ending-title">
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner wide">
+          <p class="chapter-number">07</p>
+          <h2 id="ending-title">That was Year One.</h2>
+
+          <div class="recap" aria-label="Year One recap">
+            <p><strong>11,275</strong><span>learners</span></p>
+            <p><strong>27</strong><span>countries</span></p>
+            <p><strong>112,466</strong><span>lessons completed</span></p>
+            <p><strong>40 → 98</strong><span>Global Package lessons</span></p>
+          </div>
+
+          <div class="people-message">
+            <p>But WeLearn is more than numbers.</p>
+            <p>It's the people who learn, teach, create, translate, share and keep it moving.</p>
+            <p>So, before we start Year Two…</p>
+            <p>there's one more thing we want to say.</p>
+          </div>
+
+          <button class="video-cta" id="video-cta" type="button">▶ Play our birthday message</button>
+
+          <div class="video-shell" id="video-shell" hidden>
+            <div class="video-placeholder" id="video-placeholder">
+              <div class="video-glow" aria-hidden="true"></div>
+              <img src="assets/welearn-lit.png" alt="" aria-hidden="true">
+              <span>Birthday message placeholder</span>
+              <small>Future 16:9 video · 30–45 seconds</small>
+              <div class="fake-player" aria-hidden="true">
+                <span class="fake-play">▶</span>
+                <span class="fake-track"><i></i></span>
+                <span>0:40</span>
+              </div>
+            </div>
+            <button class="simulate-button" id="simulate-end" type="button">Simulate video ending</button>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="chapter is-locked jennifer-chapter" id="jennifer" data-stage="8" aria-labelledby="jennifer-title" hidden>
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner wide" aria-live="polite">
+          <div class="jennifer-seed" aria-hidden="true">
+            <span></span>
+            <p>Actually… one more thing.</p>
+          </div>
+          <div class="jennifer-bubble">
+            <p class="jennifer-prelude">Actually… one more thing.</p>
+            <h2 id="jennifer-title">A special thank you to Jennifer ❤️</h2>
+            <p class="jennifer-lead">WeLearn wouldn't be celebrating its first birthday without you.</p>
+            <p>As you get ready for your next adventure, we couldn't let Year One end without giving you a little bit of the credit.</p>
+            <p class="jennifer-thanks">Thank you for helping bring WeLearn to life.</p>
+            <p class="jennifer-aside">We'll try not to break it after you leave.</p>
+            <button class="jennifer-continue" id="jennifer-continue" type="button" aria-label="Continue to the celebration" disabled>
+              <span aria-hidden="true">↓</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter is-locked finale-chapter" id="celebration" data-stage="9" aria-labelledby="celebration-title" hidden>
+        <span class="timeline-node" aria-hidden="true"></span>
+        <div class="chapter-inner wide">
+          <div class="final-celebration" id="final-celebration" aria-live="polite">
+            <div class="confetti" id="confetti" aria-hidden="true"></div>
+            <img src="assets/welearn-lit.png" alt="WeLearn lightbulb logo">
+            <h2 id="celebration-title">Happy Birthday, WeLearn!</h2>
+            <p>See you in Year Two.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/vendor/d3.min.js"></script>
+  <script src="assets/vendor/topojson-client.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
