@@ -196,7 +196,7 @@ const SPOTLIGHTS = [
   { label: "Nicola's Favorite ❤️", placeholder: true },
   { label: "Patrick's Favorite ❤️", placeholder: true },
   { label: "Kris's Favorite ❤️", placeholder: true },
-  { label: "Jennifer Sarmiento's Favorite ❤️", placeholder: true },
+  { label: "Jennifer's Favorite ❤️", placeholder: true },
 ];
 
 const state = {
