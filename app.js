@@ -5,7 +5,7 @@ const CONFIG = {
   lessonsCompleted: 112466,
   minutesLearned: 806782,
   launchLessons: 40,
-  currentLessons: 98,
+  currentLessons: 102,
   localLessons: 50,
   finalVideoSource: "",
 };
@@ -157,11 +157,15 @@ const COURSES = [
   "Parry's CRM - Opportunities",
   "Parry's CRM - Sales Account",
   "Supply Chain Audit Services & Platform",
+  "AI Intermediate 1 — Getting More from AI",
+  "AI Intermediate 2 — AI in Action",
+  "AI Intermediate 3 — Inside the ChatRGIS Workspace",
+  "AI Intermediate 4 — Build Your AI Colleague",
 ];
 
 // Excel completion dates in the same source order as COURSES. The launch view
 // includes every lesson completed on or before 7 October 2025 (40 lessons).
-const COURSE_COMPLETION_SERIALS = [45917,45930,45911,45910,45919,45922,45912,45923,45925,45910,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45931,45932,45933,45933,45936,45937,45938,45939,45939,45943,45943,45950,45971,45971,45971,45960,45992,46010,46010,46030,46073,46073,46120,46120,46125,46128,46127,46134,46175,46206,46224,46232,46241,46241,46252,46260,46262,46267,46267,46268,46269,46273,46280,45939,45939,46049,46064,46078,46078,46078,46078,46065,46065,46065,46108,46108,46108,46122,46122,46122,46188,46188,46223,46238];
+const COURSE_COMPLETION_SERIALS = [45917,45930,45911,45910,45919,45922,45912,45923,45925,45910,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45937,45931,45932,45933,45933,45936,45937,45938,45939,45939,45943,45943,45950,45971,45971,45971,45960,45992,46010,46010,46030,46073,46073,46120,46120,46125,46128,46127,46134,46175,46206,46224,46232,46241,46241,46252,46260,46262,46267,46267,46268,46269,46273,46280,45939,45939,46049,46064,46078,46078,46078,46078,46065,46065,46065,46108,46108,46108,46122,46122,46122,46188,46188,46223,46238,46288,46288,46288,46288];
 
 const CATALOGUE = COURSES
   .map((title, assetIndex) => ({ title, assetIndex, completedSerial: COURSE_COMPLETION_SERIALS[assetIndex] }))
@@ -192,7 +196,7 @@ const SPOTLIGHTS = [
   { label: "Nicola's Favorite ❤️", placeholder: true },
   { label: "Patrick's Favorite ❤️", placeholder: true },
   { label: "Kris's Favorite ❤️", placeholder: true },
-  { label: "Jennifer's Favorite ❤️", placeholder: true },
+  { label: "Jennifer Sarmiento's Favorite ❤️", placeholder: true },
 ];
 
 const state = {
