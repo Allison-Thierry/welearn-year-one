@@ -468,12 +468,20 @@ function handleCountryClick(feature) {
 
   state.mapGameComplete = true;
   setCountryClass(id, "is-wrong");
-  $("#map-status").textContent = `${name} isn't on the list — revealing the rest…`;
+  const errorMessage = $("#map-error-message");
+  errorMessage.textContent = `✕ ${name} isn't on the list.`;
+  errorMessage.hidden = false;
+  $("#map-status").textContent = "Revealing the rest…";
   window.setTimeout(() => completeMap(false), reduceMotion ? 50 : 720);
 }
 
 function completeMap(perfect) {
   state.mapGameComplete = true;
+  if (perfect) {
+    const errorMessage = $("#map-error-message");
+    errorMessage.textContent = "";
+    errorMessage.hidden = true;
+  }
   COUNTRY_IDS.forEach((id) => setCountryClass(id, "is-revealed"));
   $("#map-progress").textContent = "27 / 27";
   $("#map-status").textContent = "All 27 countries are lit.";
@@ -498,6 +506,9 @@ function resetMap() {
     .classed("is-revealed", false)
     .classed("is-wrong", false);
   $("#map-progress").textContent = "0 / ?";
+  const errorMessage = $("#map-error-message");
+  errorMessage.textContent = "";
+  errorMessage.hidden = true;
   $("#map-status").textContent = "Fresh map. Go again.";
   $("#map-result").hidden = true;
   $("#country-list").hidden = false;

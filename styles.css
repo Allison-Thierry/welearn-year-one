@@ -766,6 +766,21 @@ body.is-lit .opening-copy {
   font-size: 0.92rem;
 }
 
+.map-error-message {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.25rem;
+  color: #ff657a;
+  font-family: "Sora", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(221, 35, 63, 0.35);
+}
+
+.map-error-message[hidden] {
+  display: none;
+}
+
 .map-side {
   display: grid;
   min-height: auto;
