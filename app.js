@@ -763,7 +763,11 @@ function buildSpotlights() {
           <strong>${spotlight.label}</strong>
         </span>
         <span class="spotlight-face spotlight-back">
-          ${spotlight.image ? `<img src="${spotlight.image}" alt="${spotlight.course}" loading="lazy">` : ""}
+          ${spotlight.image
+            ? spotlight.teamPick
+              ? `<span class="spotlight-image-wrap"><img src="${spotlight.image}" alt="${spotlight.course}" loading="lazy"></span>`
+              : `<img src="${spotlight.image}" alt="${spotlight.course}" loading="lazy">`
+            : ""}
           <span class="spotlight-kicker">${spotlight.label}</span>
           ${spotlight.teamPick
             ? spotlight.quote ? `<span class="spotlight-quote">“${spotlight.quote}”</span>` : ""
@@ -792,6 +796,7 @@ function revealSpotlight(card, index) {
 async function startBirthdayVideo() {
   const shell = $("#video-shell");
   state.videoStarted = true;
+  document.body.classList.add("is-video-playing");
   shell.hidden = false;
   shell.classList.add("is-playing");
   $("#video-cta").disabled = true;
@@ -815,6 +820,7 @@ async function startBirthdayVideo() {
   } catch (error) {
     console.error(error);
     state.videoStarted = false;
+    document.body.classList.remove("is-video-playing");
     shell.hidden = true;
     shell.classList.remove("is-playing");
     $("#video-cta").disabled = false;
