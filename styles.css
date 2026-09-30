@@ -1574,15 +1574,17 @@ body.is-lit .opening-copy {
 .spotlight-card.is-team-pick .spotlight-kicker {
   position: absolute;
   top: 0.95rem;
+  right: 0.95rem;
   left: 0.95rem;
-  width: max-content;
-  max-width: calc(100% - 1.9rem);
+  width: auto;
+  max-width: none;
   padding: 0.42rem 0.58rem;
   border-radius: 0.45rem;
   background: rgba(10, 31, 39, 0.94);
   color: var(--champagne-pale);
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.22);
   letter-spacing: 0.045em;
+  text-align: center;
   white-space: nowrap;
 }
 
