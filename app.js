@@ -695,7 +695,10 @@ function buildCatalogue() {
     image.alt = course.title;
     image.loading = index < 15 ? "eager" : "lazy";
     image.decoding = "async";
-    card.append(image);
+    const ribbonMask = document.createElement("span");
+    ribbonMask.className = "ribbon-mask";
+    ribbonMask.setAttribute("aria-hidden", "true");
+    card.append(image, ribbonMask);
     wall.append(card);
   });
 }
@@ -765,7 +768,7 @@ function buildSpotlights() {
         <span class="spotlight-face spotlight-back">
           ${spotlight.image
             ? spotlight.teamPick
-              ? `<span class="spotlight-image-wrap"><img src="${spotlight.image}" alt="${spotlight.course}" loading="lazy"></span>`
+              ? `<span class="spotlight-image-wrap"><img src="${spotlight.image}" alt="${spotlight.course}" loading="lazy"><span class="ribbon-mask" aria-hidden="true"></span></span>`
               : `<img src="${spotlight.image}" alt="${spotlight.course}" loading="lazy">`
             : ""}
           <span class="spotlight-kicker">${spotlight.label}</span>

@@ -1276,23 +1276,30 @@ body.is-lit .opening-copy {
   animation: card-arrive 520ms var(--ease) both;
 }
 
-.catalogue-card::before {
+.catalogue-card::before,
+.catalogue-card::after,
+.spotlight-image-wrap::before,
+.spotlight-image-wrap::after {
+  display: none;
+}
+
+.ribbon-mask {
   position: absolute;
   top: -1px;
   left: -1px;
-  z-index: 4;
-  width: 5.8rem;
-  height: 5.8rem;
-  content: "";
+  z-index: 20;
+  display: block;
+  width: 6.4rem;
+  height: 6.4rem;
   background: var(--petrol);
   clip-path: polygon(0 0, 100% 0, 0 100%);
+  pointer-events: none;
 }
 
-.catalogue-card::after {
+.ribbon-mask::after {
   position: absolute;
   top: 0.7rem;
   left: 0.7rem;
-  z-index: 5;
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 50%;
@@ -1584,31 +1591,6 @@ body.is-lit .opening-copy {
   border-radius: 0.5rem;
   background: white;
   box-shadow: 0 8px 20px rgba(10, 27, 33, 0.2);
-}
-
-.spotlight-image-wrap::before {
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  z-index: 4;
-  width: 5.8rem;
-  height: 5.8rem;
-  content: "";
-  background: var(--petrol);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
-.spotlight-image-wrap::after {
-  position: absolute;
-  top: 0.7rem;
-  left: 0.7rem;
-  z-index: 5;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--champagne);
-  box-shadow: 0 0 9px rgba(246, 203, 105, 0.9);
-  content: "";
 }
 
 .spotlight-image-wrap img {
