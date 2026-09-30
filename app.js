@@ -8,6 +8,16 @@ const CONFIG = {
   currentLessons: 102,
   localLessons: 50,
   finalVideoSource: "",
+  finalVideoParts: [
+    "assets/video/welearn-birthday.mp4.part-00",
+    "assets/video/welearn-birthday.mp4.part-01",
+    "assets/video/welearn-birthday.mp4.part-02",
+    "assets/video/welearn-birthday.mp4.part-03",
+    "assets/video/welearn-birthday.mp4.part-04",
+    "assets/video/welearn-birthday.mp4.part-05",
+    "assets/video/welearn-birthday.mp4.part-06",
+    "assets/video/welearn-birthday.mp4.part-07",
+  ],
 };
 
 const LEARNER_OPTIONS = [6420, 8340, 9650, 11275];
@@ -193,10 +203,32 @@ const SPOTLIGHTS = [
     copy: "Across 17 countries. Not bad for one of the new kids.",
     image: "assets/catalog/card-53.webp",
   },
-  { label: "Nicola's Favorite ❤️", placeholder: true },
-  { label: "Patrick's Favorite ❤️", placeholder: true },
-  { label: "Kris's Favorite ❤️", placeholder: true },
-  { label: "Jennifer's Favorite ❤️", placeholder: true },
+  {
+    label: "Nicola's Favorite ❤️",
+    course: "Working with the Flow Plan Advisor",
+    image: "assets/spotlights/nicola-favorite.webp",
+    teamPick: true,
+  },
+  {
+    label: "Patrick's Favorite ❤️",
+    course: "AI Intermediate 2 — AI in Action",
+    image: "assets/spotlights/patrick-favorite.webp",
+    teamPick: true,
+  },
+  {
+    label: "Kris's Favorite ❤️",
+    course: "RGIS Academy - Career Opportunities",
+    image: "assets/spotlights/kris-favorite.webp",
+    quote: "It highlights how far you can go at RGIS, even when you join at the very bottom, and how RGIS can be a genuinely positive influence in people's lives.",
+    teamPick: true,
+  },
+  {
+    label: "Jennifer's Favorite ❤️",
+    course: "Effective Event Supervision",
+    image: "assets/spotlights/jennifer-favorite.webp",
+    quote: "It was the very first course created specifically for WeLearn — the point where our approach to learning began to shift.",
+    teamPick: true,
+  },
 ];
 
 const state = {
@@ -220,6 +252,24 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 const numberFormatter = new Intl.NumberFormat("en-GB");
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+let finalVideoUrlPromise;
+
+function prepareBirthdayVideo() {
+  if (CONFIG.finalVideoSource) return Promise.resolve(CONFIG.finalVideoSource);
+  if (!finalVideoUrlPromise) {
+    finalVideoUrlPromise = Promise.all(CONFIG.finalVideoParts.map(async (part) => {
+      const response = await fetch(part);
+      if (!response.ok) throw new Error(`Could not load video part: ${part}`);
+      return response.arrayBuffer();
+    }))
+      .then((parts) => URL.createObjectURL(new Blob(parts, { type: "video/mp4" })))
+      .catch((error) => {
+        finalVideoUrlPromise = undefined;
+        throw error;
+      });
+  }
+  return finalVideoUrlPromise;
+}
 
 function flashLightCue(chapter) {
   if (!chapter || reduceMotion) return;
@@ -703,9 +753,9 @@ function buildSpotlights() {
   SPOTLIGHTS.forEach((spotlight, index) => {
     const card = document.createElement("button");
     card.type = "button";
-    card.className = `spotlight-card${spotlight.placeholder ? " is-placeholder" : ""}`;
+    card.className = `spotlight-card${spotlight.teamPick ? " is-team-pick" : ""}`;
     card.setAttribute("aria-expanded", "false");
-    card.setAttribute("aria-label", `Reveal ${spotlight.label}`);
+    card.setAttribute("aria-label", `Reveal ${spotlight.label}: ${spotlight.course}`);
     card.innerHTML = `
       <span class="spotlight-card-inner">
         <span class="spotlight-face spotlight-front">
@@ -713,11 +763,13 @@ function buildSpotlights() {
           <strong>${spotlight.label}</strong>
         </span>
         <span class="spotlight-face spotlight-back">
-          ${spotlight.image ? `<img src="${spotlight.image}" alt="" loading="lazy">` : ""}
+          ${spotlight.image ? `<img src="${spotlight.image}" alt="${spotlight.course}" loading="lazy">` : ""}
           <span class="spotlight-kicker">${spotlight.label}</span>
-          <strong class="spotlight-course">${spotlight.placeholder ? "Team pick" : spotlight.course}</strong>
-          <span class="spotlight-stat">${spotlight.placeholder ? "Coming soon…" : spotlight.stat}</span>
-          <span class="spotlight-copy">${spotlight.placeholder ? "Top secret for now." : spotlight.copy}</span>
+          ${spotlight.teamPick
+            ? spotlight.quote ? `<span class="spotlight-quote">“${spotlight.quote}”</span>` : ""
+            : `<strong class="spotlight-course">${spotlight.course}</strong>
+               <span class="spotlight-stat">${spotlight.stat}</span>
+               <span class="spotlight-copy">${spotlight.copy}</span>`}
         </span>
       </span>`;
     card.addEventListener("click", () => revealSpotlight(card, index));
@@ -732,11 +784,12 @@ function revealSpotlight(card, index) {
   card.setAttribute("aria-expanded", "true");
   if (state.spotlightOpened.size === 1) {
     $("#spotlight-hint").textContent = "The final stretch is lit. The other cards are still yours to explore.";
+    prepareBirthdayVideo().catch((error) => console.error(error));
     window.setTimeout(() => setUnlocked(7), reduceMotion ? 20 : 420);
   }
 }
 
-function startVideoPlaceholder() {
+async function startBirthdayVideo() {
   const shell = $("#video-shell");
   state.videoStarted = true;
   shell.hidden = false;
@@ -745,21 +798,33 @@ function startVideoPlaceholder() {
   requestAnimationFrame(() => updateTimeline(true));
   window.setTimeout(() => shell.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }), 60);
 
-  if (CONFIG.finalVideoSource) {
+  try {
+    const source = await prepareBirthdayVideo();
     const video = document.createElement("video");
     video.controls = true;
     video.autoplay = true;
-    video.src = CONFIG.finalVideoSource;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.src = source;
     video.className = "real-video";
+    video.setAttribute("aria-label", "WeLearn Year One birthday message");
+    video.addEventListener("loadedmetadata", () => updateTimeline(false));
     video.addEventListener("ended", revealJenniferMoment);
     $("#video-placeholder").replaceWith(video);
+    video.play().catch(() => {});
+  } catch (error) {
+    console.error(error);
+    state.videoStarted = false;
+    shell.hidden = true;
+    shell.classList.remove("is-playing");
+    $("#video-cta").disabled = false;
+    $("#video-cta").textContent = "Try the birthday message again";
   }
 }
 
 function revealJenniferMoment() {
   if (state.jenniferStarted) return;
   state.jenniferStarted = true;
-  $("#simulate-end").disabled = true;
   $("#jennifer").hidden = false;
   document.body.classList.add("is-holding-thought");
   setUnlocked(8);
@@ -813,8 +878,7 @@ function wireEvents() {
   holdButton.addEventListener("keyup", stopHolding);
 
   $("#catalogue-slider").addEventListener("input", updateCatalogue);
-  $("#video-cta").addEventListener("click", startVideoPlaceholder);
-  $("#simulate-end").addEventListener("click", revealJenniferMoment);
+  $("#video-cta").addEventListener("click", startBirthdayVideo);
   $("#jennifer-continue").addEventListener("click", revealFinale);
   window.addEventListener("resize", () => updateTimeline(false));
   window.addEventListener("load", () => updateTimeline(false));
