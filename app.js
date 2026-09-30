@@ -9,14 +9,14 @@ const CONFIG = {
   localLessons: 50,
   finalVideoSource: "",
   finalVideoParts: [
-    "assets/video/welearn-birthday.mp4.part-00",
-    "assets/video/welearn-birthday.mp4.part-01",
-    "assets/video/welearn-birthday.mp4.part-02",
-    "assets/video/welearn-birthday.mp4.part-03",
-    "assets/video/welearn-birthday.mp4.part-04",
-    "assets/video/welearn-birthday.mp4.part-05",
-    "assets/video/welearn-birthday.mp4.part-06",
-    "assets/video/welearn-birthday.mp4.part-07",
+    "assets/video/welearn-birthday.mp4.part-00?v=20260930-2",
+    "assets/video/welearn-birthday.mp4.part-01?v=20260930-2",
+    "assets/video/welearn-birthday.mp4.part-02?v=20260930-2",
+    "assets/video/welearn-birthday.mp4.part-03?v=20260930-2",
+    "assets/video/welearn-birthday.mp4.part-04?v=20260930-2",
+    "assets/video/welearn-birthday.mp4.part-05?v=20260930-2",
+    "assets/video/welearn-birthday.mp4.part-06?v=20260930-2",
+    "assets/video/welearn-birthday.mp4.part-07?v=20260930-2",
   ],
 };
 
