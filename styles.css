@@ -103,7 +103,7 @@ body.has-unlock-flash::after {
   backdrop-filter: blur(3px) saturate(0.65);
 }
 
-body.video-cue-dark .video-cue-dimmer {
+ .video-cue-dimmer.is-active {
   opacity: 1 !important;
 }
 
@@ -128,7 +128,7 @@ body.video-cue-dark .video-cue-dimmer {
   transition: opacity 220ms ease-out;
 }
 
-body.video-cue-balloons .video-cue-balloons {
+.video-cue-balloons.is-active {
   opacity: 0.92 !important;
 }
 
@@ -157,7 +157,7 @@ body.video-cue-balloons .video-cue-balloons {
   clip-path: polygon(50% 0, 100% 100%, 0 82%);
 }
 
-body.video-cue-balloons .video-balloon {
+.video-cue-balloons.is-active .video-balloon {
   animation: video-balloon-sweep var(--duration) linear var(--delay) infinite;
 }
 
@@ -165,7 +165,7 @@ body.video-cue-balloons .video-balloon {
   transition: opacity 260ms ease-out;
 }
 
-body.video-cue-hearts .video-cue-hearts {
+.video-cue-hearts.is-active {
   opacity: 1 !important;
 }
 
@@ -189,11 +189,11 @@ body.video-cue-hearts .video-cue-hearts {
   right: 23%;
 }
 
-body.video-cue-hearts .video-heart.is-left {
+.video-cue-hearts.is-active .video-heart.is-left {
   animation: video-heart-left var(--heart-duration) var(--ease) var(--heart-delay) infinite;
 }
 
-body.video-cue-hearts .video-heart.is-right {
+.video-cue-hearts.is-active .video-heart.is-right {
   animation: video-heart-right var(--heart-duration) var(--ease) var(--heart-delay) infinite;
 }
 
@@ -205,7 +205,7 @@ body.video-cue-hearts .video-heart.is-right {
     radial-gradient(circle at 88% 58%, rgba(255, 241, 189, 0.2), transparent 28%);
 }
 
-body.video-cue-firework .video-cue-firework {
+.video-cue-firework.is-active {
   animation: video-firework-flash 1.15s var(--ease) both;
 }
 

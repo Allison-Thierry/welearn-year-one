@@ -331,20 +331,30 @@ function buildVideoCueEffects() {
   }
 }
 
+function setVideoCue(name, active) {
+  document.body.classList.toggle(`video-cue-${name}`, active);
+  const layer = $(`#video-cue-${name}`);
+  if (layer) layer.classList.toggle("is-active", active);
+}
+
 function clearVideoCues() {
   window.cancelAnimationFrame(videoCueFrame);
   videoCueFrame = 0;
   VIDEO_CUE_CLASSES.forEach((className) => document.body.classList.remove(className));
+  ["dimmer", "balloons", "hearts", "firework"].forEach((name) => {
+    $(`#video-cue-${name}`)?.classList.remove("is-active");
+  });
 }
 
 function syncVideoCues(video) {
   const time = Number.isFinite(video.currentTime) ? video.currentTime : 0;
   const cueIsActive = state.videoStarted && !video.ended;
   const dark = cueIsActive && ((time >= 3.5 && time < 9) || (time >= 27 && time < 35));
-  document.body.classList.toggle("video-cue-dark", dark);
-  document.body.classList.toggle("video-cue-balloons", cueIsActive && time >= 9 && time < 19);
-  document.body.classList.toggle("video-cue-hearts", cueIsActive && time >= 29 && time < 34);
-  document.body.classList.toggle("video-cue-firework", cueIsActive && time >= 35 && time < 36.35);
+  setVideoCue("dark", dark);
+  $("#video-cue-dimmer")?.classList.toggle("is-active", dark);
+  setVideoCue("balloons", cueIsActive && time >= 9 && time < 19);
+  setVideoCue("hearts", cueIsActive && time >= 29 && time < 34);
+  setVideoCue("firework", cueIsActive && time >= 35 && time < 36.35);
 }
 
 function runVideoCueLoop(video) {
