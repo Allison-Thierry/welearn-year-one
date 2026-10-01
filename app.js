@@ -364,7 +364,7 @@ function syncVideoCues(video) {
   }
   setVideoCue("balloons", cueIsActive && time >= 9 && time < 19);
   setVideoCue("hearts", cueIsActive && time >= 29 && time < 34);
-  setVideoCue("firework", cueIsActive && time >= 35 && time < 36.35);
+  setVideoCue("firework", cueIsActive && time >= 35 && time < 37);
 }
 
 function runVideoCueLoop(video) {

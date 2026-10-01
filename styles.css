@@ -115,9 +115,9 @@ body.has-unlock-flash::after {
   pointer-events: none;
 }
 
-.video-cue-balloons,
-.video-cue-hearts,
-.video-cue-firework {
+.video-cue-atmosphere > .video-cue-balloons,
+.video-cue-atmosphere > .video-cue-hearts,
+.video-cue-atmosphere > .video-cue-firework {
   position: absolute;
   inset: 0;
   opacity: 0;
