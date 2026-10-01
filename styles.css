@@ -146,6 +146,8 @@ body.has-unlock-flash::after {
   filter: saturate(1.2);
   mix-blend-mode: screen;
   transform-origin: 50% 90%;
+  transition: opacity 850ms var(--ease);
+  will-change: transform, opacity;
 }
 
 .video-balloon::after {
@@ -162,6 +164,10 @@ body.has-unlock-flash::after {
 body.video-cue-balloons > .video-balloon {
   opacity: var(--balloon-opacity);
   animation: video-balloon-sweep var(--duration) linear var(--delay) infinite;
+}
+
+body.video-cue-balloons.video-cue-balloons-exiting > .video-balloon {
+  opacity: 0;
 }
 
 .video-cue-hearts {
@@ -2004,6 +2010,11 @@ body.is-lit .opening-copy {
   isolation: isolate;
   margin: 4rem auto 0;
   animation: rise-in 800ms var(--ease) both;
+}
+
+/* Keep the film itself above the ambient page blackout. */
+body.video-cue-dark .video-shell {
+  z-index: 47;
 }
 
 .video-shell::before {
