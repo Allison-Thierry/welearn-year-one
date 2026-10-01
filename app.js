@@ -275,6 +275,7 @@ function prepareBirthdayVideo() {
 const VIDEO_CUE_CLASSES = [
   "video-cue-dark",
   "video-cue-balloons",
+  "video-cue-balloons-exiting",
   "video-cue-hearts",
   "video-cue-firework",
   "video-cue-paused",
@@ -364,7 +365,9 @@ function syncVideoCues(video) {
     dimmer.classList.toggle("is-active", dark);
     dimmer.style.opacity = dark ? "1" : "0";
   }
-  setVideoCue("balloons", cueIsActive && time >= 9 && time < 19);
+  const balloonsActive = cueIsActive && time >= 9 && time < 20;
+  setVideoCue("balloons", balloonsActive);
+  document.body.classList.toggle("video-cue-balloons-exiting", balloonsActive && time >= 19);
   setVideoCue("hearts", cueIsActive && time >= 29 && time < 34);
   setVideoCue("firework", cueIsActive && time >= 35 && time < 37);
 }
