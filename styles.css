@@ -104,7 +104,7 @@ body.has-unlock-flash::after {
 }
 
 body.video-cue-dark .video-cue-dimmer {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .video-cue-atmosphere {
@@ -129,7 +129,7 @@ body.video-cue-dark .video-cue-dimmer {
 }
 
 body.video-cue-balloons .video-cue-balloons {
-  opacity: 0.92;
+  opacity: 0.92 !important;
 }
 
 .video-balloon {
@@ -166,7 +166,7 @@ body.video-cue-balloons .video-balloon {
 }
 
 body.video-cue-hearts .video-cue-hearts {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .video-heart {
