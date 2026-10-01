@@ -134,14 +134,15 @@ body.has-unlock-flash::after {
 }
 
 .video-balloon {
-  position: absolute;
+  position: fixed;
   top: var(--top);
   left: 0;
+  z-index: 46;
   width: var(--size);
   aspect-ratio: 0.82;
   border-radius: 48% 52% 54% 46% / 45% 47% 53% 55%;
   background: var(--balloon-color);
-  opacity: var(--balloon-opacity);
+  opacity: 0;
   filter: saturate(1.2);
   mix-blend-mode: screen;
   transform-origin: 50% 90%;
@@ -158,7 +159,8 @@ body.has-unlock-flash::after {
   clip-path: polygon(50% 0, 100% 100%, 0 82%);
 }
 
-.video-cue-balloons.is-active .video-balloon {
+body.video-cue-balloons > .video-balloon {
+  opacity: var(--balloon-opacity);
   animation: video-balloon-sweep var(--duration) linear var(--delay) infinite;
 }
 
@@ -171,8 +173,9 @@ body.has-unlock-flash::after {
 }
 
 .video-heart {
-  position: absolute;
+  position: fixed;
   top: var(--top);
+  z-index: 46;
   color: var(--heart-color);
   font-size: var(--heart-size);
   line-height: 1;
@@ -190,11 +193,11 @@ body.has-unlock-flash::after {
   right: 23%;
 }
 
-.video-cue-hearts.is-active .video-heart.is-left {
+body.video-cue-hearts > .video-heart.is-left {
   animation: video-heart-left var(--heart-duration) var(--ease) var(--heart-delay) infinite;
 }
 
-.video-cue-hearts.is-active .video-heart.is-right {
+body.video-cue-hearts > .video-heart.is-right {
   animation: video-heart-right var(--heart-duration) var(--ease) var(--heart-delay) infinite;
 }
 
@@ -215,6 +218,8 @@ body.video-cue-firework .video-shell::before {
 }
 
 body.video-cue-paused .video-cue-atmosphere *,
+body.video-cue-paused > .video-balloon,
+body.video-cue-paused > .video-heart,
 body.video-cue-paused .video-shell::before {
   animation-play-state: paused !important;
 }

@@ -284,7 +284,7 @@ let videoCueFrame = 0;
 function buildVideoCueEffects() {
   const balloonLayer = $("#video-cue-balloons");
   const heartLayer = $("#video-cue-hearts");
-  if (!balloonLayer || !heartLayer || balloonLayer.children.length) return;
+  if (!balloonLayer || !heartLayer || document.body.querySelector(".video-balloon")) return;
 
   const balloonColors = [
     "#ff007f",
@@ -302,6 +302,7 @@ function buildVideoCueEffects() {
   for (let index = 0; index < 14; index += 1) {
     const balloon = document.createElement("i");
     balloon.className = "video-balloon";
+    balloon.setAttribute("aria-hidden", "true");
     balloon.style.setProperty("--top", `${-12 + ((index * 19) % 110)}%`);
     balloon.style.setProperty("--size", `${7 + (index % 5) * 2.8}rem`);
     balloon.style.setProperty("--balloon-color", balloonColors[index % balloonColors.length]);
@@ -313,7 +314,7 @@ function buildVideoCueEffects() {
     balloon.style.setProperty("--drift-start", `${(index % 3) * 2.5}vh`);
     balloon.style.setProperty("--drift-mid", `${-4 + (index % 4) * 2}vh`);
     balloon.style.setProperty("--drift-end", `${2 - (index % 5) * 1.2}vh`);
-    balloonLayer.append(balloon);
+    document.body.append(balloon);
   }
 
   const heartColors = ["#dd233f", "#ff5271", "#f6cb69", "#fff1bd"];
@@ -321,13 +322,14 @@ function buildVideoCueEffects() {
     const heart = document.createElement("i");
     const side = index % 2 === 0 ? "left" : "right";
     heart.className = `video-heart is-${side}`;
+    heart.setAttribute("aria-hidden", "true");
     heart.textContent = "♥";
     heart.style.setProperty("--top", `${35 + ((index * 13) % 43)}%`);
     heart.style.setProperty("--heart-color", heartColors[index % heartColors.length]);
     heart.style.setProperty("--heart-size", `${1.15 + (index % 5) * 0.32}rem`);
     heart.style.setProperty("--heart-duration", `${2.2 + (index % 4) * 0.36}s`);
     heart.style.setProperty("--heart-delay", `${-(index % 6) * 0.38}s`);
-    heartLayer.append(heart);
+    document.body.append(heart);
   }
 }
 
