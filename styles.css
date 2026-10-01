@@ -125,7 +125,7 @@ body.has-unlock-flash::after {
 }
 
 .video-cue-balloons {
-  transition: opacity 220ms ease-out;
+  transition: none;
 }
 
 .video-cue-balloons.is-active {
@@ -162,7 +162,7 @@ body.has-unlock-flash::after {
 }
 
 .video-cue-hearts {
-  transition: opacity 260ms ease-out;
+  transition: none;
 }
 
 .video-cue-hearts.is-active {
