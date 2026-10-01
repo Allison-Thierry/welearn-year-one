@@ -2014,7 +2014,24 @@ body.is-lit .opening-copy {
 
 /* Keep the film itself above the ambient page blackout. */
 body.video-cue-dark .video-shell {
-  z-index: 47;
+  z-index: 12;
+}
+
+/* The ending card is its own stacking context. Lift that context above the
+   global blackout, then recreate the blackout inside it below the film. */
+body.video-cue-dark .ending-chapter {
+  z-index: 45;
+}
+
+body.video-cue-dark .ending-chapter .chapter-inner::after {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  content: "";
+  border-radius: inherit;
+  background: rgba(1, 7, 9, 0.82);
+  pointer-events: none;
+  animation: video-cue-darken 520ms var(--ease) both;
 }
 
 .video-shell::before {
