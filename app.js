@@ -334,7 +334,9 @@ function buildVideoCueEffects() {
 function setVideoCue(name, active) {
   document.body.classList.toggle(`video-cue-${name}`, active);
   const layer = $(`#video-cue-${name}`);
-  if (layer) layer.classList.toggle("is-active", active);
+  if (!layer) return;
+  layer.classList.toggle("is-active", active);
+  layer.style.opacity = active ? (name === "balloons" ? "0.92" : "1") : "0";
 }
 
 function clearVideoCues() {
@@ -342,7 +344,11 @@ function clearVideoCues() {
   videoCueFrame = 0;
   VIDEO_CUE_CLASSES.forEach((className) => document.body.classList.remove(className));
   ["dimmer", "balloons", "hearts", "firework"].forEach((name) => {
-    $(`#video-cue-${name}`)?.classList.remove("is-active");
+    const layer = $(`#video-cue-${name}`);
+    if (layer) {
+      layer.classList.remove("is-active");
+      layer.style.opacity = "0";
+    }
   });
 }
 
@@ -351,7 +357,11 @@ function syncVideoCues(video) {
   const cueIsActive = state.videoStarted && !video.ended;
   const dark = cueIsActive && ((time >= 3.5 && time < 9) || (time >= 27 && time < 35));
   setVideoCue("dark", dark);
-  $("#video-cue-dimmer")?.classList.toggle("is-active", dark);
+  const dimmer = $("#video-cue-dimmer");
+  if (dimmer) {
+    dimmer.classList.toggle("is-active", dark);
+    dimmer.style.opacity = dark ? "1" : "0";
+  }
   setVideoCue("balloons", cueIsActive && time >= 9 && time < 19);
   setVideoCue("hearts", cueIsActive && time >= 29 && time < 34);
   setVideoCue("firework", cueIsActive && time >= 35 && time < 36.35);
