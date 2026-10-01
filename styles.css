@@ -97,13 +97,14 @@ body.has-unlock-flash::after {
   background: rgba(1, 7, 9, 0.9);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 620ms var(--ease);
+  transition: none;
   -webkit-mask-image: radial-gradient(ellipse 41% 34% at 50% 64%, transparent 0 80%, #000 100%);
   mask-image: radial-gradient(ellipse 41% 34% at 50% 64%, transparent 0 80%, #000 100%);
   backdrop-filter: blur(3px) saturate(0.65);
 }
 
  .video-cue-dimmer.is-active {
+  animation: video-cue-darken 520ms var(--ease) both;
   opacity: 1 !important;
 }
 
@@ -216,6 +217,15 @@ body.video-cue-firework .video-shell::before {
 body.video-cue-paused .video-cue-atmosphere *,
 body.video-cue-paused .video-shell::before {
   animation-play-state: paused !important;
+}
+
+@keyframes video-cue-darken {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes video-balloon-sweep {
