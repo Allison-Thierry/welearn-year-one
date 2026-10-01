@@ -89,6 +89,215 @@ body.has-unlock-flash::after {
   animation: page-flash 850ms var(--ease) both;
 }
 
+
+.video-cue-dimmer {
+  position: fixed;
+  inset: 0;
+  z-index: 25;
+  background: rgba(1, 7, 9, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 620ms var(--ease);
+  -webkit-mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 78%, #000 100%);
+  mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 78%, #000 100%);
+  backdrop-filter: blur(3px) saturate(0.65);
+}
+
+body.video-cue-dark .video-cue-dimmer {
+  opacity: 1;
+}
+
+.video-cue-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 26;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.video-cue-balloons,
+.video-cue-hearts,
+.video-cue-firework {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-cue-balloons {
+  transition: opacity 220ms ease-out;
+  -webkit-mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 82%, #000 100%);
+  mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 82%, #000 100%);
+}
+
+body.video-cue-balloons .video-cue-balloons {
+  opacity: 0.92;
+}
+
+.video-balloon {
+  position: absolute;
+  top: var(--top);
+  left: 0;
+  width: var(--size);
+  aspect-ratio: 0.82;
+  border-radius: 48% 52% 54% 46% / 45% 47% 53% 55%;
+  background: var(--balloon-color);
+  opacity: var(--balloon-opacity);
+  filter: saturate(1.2);
+  mix-blend-mode: screen;
+  transform-origin: 50% 90%;
+}
+
+.video-balloon::after {
+  position: absolute;
+  bottom: -7%;
+  left: 43%;
+  width: 18%;
+  height: 13%;
+  content: "";
+  background: inherit;
+  clip-path: polygon(50% 0, 100% 100%, 0 82%);
+}
+
+body.video-cue-balloons .video-balloon {
+  animation: video-balloon-sweep var(--duration) linear var(--delay) infinite;
+}
+
+.video-cue-hearts {
+  transition: opacity 260ms ease-out;
+}
+
+body.video-cue-hearts .video-cue-hearts {
+  opacity: 1;
+}
+
+.video-heart {
+  position: absolute;
+  top: var(--top);
+  color: var(--heart-color);
+  font-size: var(--heart-size);
+  line-height: 1;
+  opacity: 0;
+  text-shadow:
+    0 0 12px color-mix(in srgb, var(--heart-color) 75%, transparent),
+    0 0 32px color-mix(in srgb, var(--heart-color) 38%, transparent);
+}
+
+.video-heart.is-left {
+  left: 23%;
+}
+
+.video-heart.is-right {
+  right: 23%;
+}
+
+body.video-cue-hearts .video-heart.is-left {
+  animation: video-heart-left var(--heart-duration) var(--ease) var(--heart-delay) infinite;
+}
+
+body.video-cue-hearts .video-heart.is-right {
+  animation: video-heart-right var(--heart-duration) var(--ease) var(--heart-delay) infinite;
+}
+
+.video-cue-firework {
+  z-index: 2;
+  background:
+    radial-gradient(circle at 50% 53%, rgba(255, 244, 190, 0.72), rgba(246, 203, 105, 0.3) 11%, transparent 34%),
+    radial-gradient(circle at 12% 42%, rgba(246, 203, 105, 0.18), transparent 25%),
+    radial-gradient(circle at 88% 58%, rgba(255, 241, 189, 0.2), transparent 28%);
+}
+
+body.video-cue-firework .video-cue-firework {
+  animation: video-firework-flash 1.15s var(--ease) both;
+}
+
+body.video-cue-firework .video-shell::before {
+  animation: video-halo-bloom 1.35s var(--ease) both;
+}
+
+body.video-cue-paused .video-cue-atmosphere *,
+body.video-cue-paused .video-shell::before {
+  animation-play-state: paused !important;
+}
+
+@keyframes video-balloon-sweep {
+  0% {
+    transform: translate3d(calc(112vw + var(--offset)), var(--drift-start), 0) rotate(var(--tilt)) scale(0.86);
+  }
+  46% {
+    transform: translate3d(48vw, var(--drift-mid), 0) rotate(calc(var(--tilt) * -0.45)) scale(1);
+  }
+  100% {
+    transform: translate3d(-30vw, var(--drift-end), 0) rotate(calc(var(--tilt) * 0.7)) scale(0.9);
+  }
+}
+
+@keyframes video-heart-left {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0) rotate(7deg) scale(0.55);
+  }
+  18% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-24vw, -18vh, 0) rotate(-26deg) scale(1.25);
+  }
+}
+
+@keyframes video-heart-right {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0) rotate(-7deg) scale(0.55);
+  }
+  18% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(24vw, -18vh, 0) rotate(26deg) scale(1.25);
+  }
+}
+
+@keyframes video-firework-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  10% {
+    opacity: 0.92;
+  }
+  26% {
+    opacity: 0.16;
+  }
+  39% {
+    opacity: 0.56;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes video-halo-bloom {
+  0% {
+    inset: 30%;
+    background: rgba(246, 203, 105, 0.08);
+    filter: blur(50px);
+  }
+  22% {
+    inset: -2%;
+    background: rgba(255, 241, 189, 0.5);
+    filter: blur(78px);
+  }
+  100% {
+    inset: 18%;
+    background: rgba(246, 203, 105, 0.12);
+    filter: blur(62px);
+  }
+}
+
 .jennifer-dimmer {
   position: fixed;
   inset: 0;

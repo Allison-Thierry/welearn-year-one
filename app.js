@@ -271,6 +271,117 @@ function prepareBirthdayVideo() {
   return finalVideoUrlPromise;
 }
 
+
+const VIDEO_CUE_CLASSES = [
+  "video-cue-dark",
+  "video-cue-balloons",
+  "video-cue-hearts",
+  "video-cue-firework",
+  "video-cue-paused",
+];
+let videoCueFrame = 0;
+
+function buildVideoCueEffects() {
+  const balloonLayer = $("#video-cue-balloons");
+  const heartLayer = $("#video-cue-hearts");
+  if (!balloonLayer || !heartLayer || balloonLayer.children.length) return;
+
+  const balloonColors = [
+    "#ff007f",
+    "#ff00e6",
+    "#ff7a00",
+    "#ffd000",
+    "#00d28d",
+    "#00b8d9",
+    "#4169ff",
+    "#8a35ff",
+    "#ed003f",
+    "#efb3ff",
+  ];
+
+  for (let index = 0; index < 14; index += 1) {
+    const balloon = document.createElement("i");
+    balloon.className = "video-balloon";
+    balloon.style.setProperty("--top", `${-12 + ((index * 19) % 110)}%`);
+    balloon.style.setProperty("--size", `${7 + (index % 5) * 2.8}rem`);
+    balloon.style.setProperty("--balloon-color", balloonColors[index % balloonColors.length]);
+    balloon.style.setProperty("--balloon-opacity", `${0.58 + (index % 4) * 0.08}`);
+    balloon.style.setProperty("--duration", `${7.4 + (index % 5) * 0.7}s`);
+    balloon.style.setProperty("--delay", `${-(index % 7) * 0.92}s`);
+    balloon.style.setProperty("--offset", `${(index % 4) * 8}vw`);
+    balloon.style.setProperty("--tilt", `${-14 + (index % 7) * 5}deg`);
+    balloon.style.setProperty("--drift-start", `${(index % 3) * 2.5}vh`);
+    balloon.style.setProperty("--drift-mid", `${-4 + (index % 4) * 2}vh`);
+    balloon.style.setProperty("--drift-end", `${2 - (index % 5) * 1.2}vh`);
+    balloonLayer.append(balloon);
+  }
+
+  const heartColors = ["#dd233f", "#ff5271", "#f6cb69", "#fff1bd"];
+  for (let index = 0; index < 14; index += 1) {
+    const heart = document.createElement("i");
+    const side = index % 2 === 0 ? "left" : "right";
+    heart.className = `video-heart is-${side}`;
+    heart.textContent = "♥";
+    heart.style.setProperty("--top", `${35 + ((index * 13) % 43)}%`);
+    heart.style.setProperty("--heart-color", heartColors[index % heartColors.length]);
+    heart.style.setProperty("--heart-size", `${1.15 + (index % 5) * 0.32}rem`);
+    heart.style.setProperty("--heart-duration", `${2.2 + (index % 4) * 0.36}s`);
+    heart.style.setProperty("--heart-delay", `${-(index % 6) * 0.38}s`);
+    heartLayer.append(heart);
+  }
+}
+
+function clearVideoCues() {
+  window.cancelAnimationFrame(videoCueFrame);
+  videoCueFrame = 0;
+  VIDEO_CUE_CLASSES.forEach((className) => document.body.classList.remove(className));
+}
+
+function syncVideoCues(video) {
+  const time = Number.isFinite(video.currentTime) ? video.currentTime : 0;
+  const cueIsActive = state.videoStarted && !video.ended;
+  const dark = cueIsActive && ((time >= 3.5 && time < 9) || (time >= 27 && time < 35));
+  document.body.classList.toggle("video-cue-dark", dark);
+  document.body.classList.toggle("video-cue-balloons", cueIsActive && time >= 9 && time < 19);
+  document.body.classList.toggle("video-cue-hearts", cueIsActive && time >= 29 && time < 34);
+  document.body.classList.toggle("video-cue-firework", cueIsActive && time >= 35 && time < 36.35);
+}
+
+function runVideoCueLoop(video) {
+  window.cancelAnimationFrame(videoCueFrame);
+  const update = () => {
+    syncVideoCues(video);
+    if (!video.paused && !video.ended) {
+      videoCueFrame = window.requestAnimationFrame(update);
+    }
+  };
+  update();
+}
+
+function connectVideoCues(video) {
+  const play = () => {
+    document.body.classList.remove("video-cue-paused");
+    runVideoCueLoop(video);
+  };
+  const pause = () => {
+    document.body.classList.add("video-cue-paused");
+    syncVideoCues(video);
+    window.cancelAnimationFrame(videoCueFrame);
+  };
+
+  video.addEventListener("play", play);
+  video.addEventListener("pause", pause);
+  video.addEventListener("seeking", () => syncVideoCues(video));
+  video.addEventListener("seeked", () => {
+    syncVideoCues(video);
+    if (!video.paused) runVideoCueLoop(video);
+  });
+  video.addEventListener("ended", () => {
+    clearVideoCues();
+    revealJenniferMoment();
+  });
+}
+
 function flashLightCue(chapter) {
   if (!chapter || reduceMotion) return;
   const node = $(".timeline-node", chapter);
@@ -817,13 +928,14 @@ async function startBirthdayVideo() {
     video.className = "real-video";
     video.setAttribute("aria-label", "WeLearn Year One birthday message");
     video.addEventListener("loadedmetadata", () => updateTimeline(false));
-    video.addEventListener("ended", revealJenniferMoment);
+    connectVideoCues(video);
     $("#video-placeholder").replaceWith(video);
     video.play().catch(() => {});
   } catch (error) {
     console.error(error);
     state.videoStarted = false;
     document.body.classList.remove("is-video-playing");
+    clearVideoCues();
     shell.hidden = true;
     shell.classList.remove("is-playing");
     $("#video-cta").disabled = false;
@@ -901,6 +1013,7 @@ function initialise() {
   buildCountryList();
   buildCatalogue();
   buildSpotlights();
+  buildVideoCueEffects();
   wireEvents();
   buildMap();
 }
