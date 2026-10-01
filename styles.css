@@ -98,8 +98,8 @@ body.has-unlock-flash::after {
   opacity: 0;
   pointer-events: none;
   transition: opacity 620ms var(--ease);
-  -webkit-mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 78%, #000 100%);
-  mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 78%, #000 100%);
+  -webkit-mask-image: radial-gradient(ellipse 41% 34% at 50% 64%, transparent 0 80%, #000 100%);
+  mask-image: radial-gradient(ellipse 41% 34% at 50% 64%, transparent 0 80%, #000 100%);
   backdrop-filter: blur(3px) saturate(0.65);
 }
 
@@ -126,8 +126,6 @@ body.video-cue-dark .video-cue-dimmer {
 
 .video-cue-balloons {
   transition: opacity 220ms ease-out;
-  -webkit-mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 82%, #000 100%);
-  mask-image: radial-gradient(ellipse 46% 40% at 50% 52%, transparent 0 82%, #000 100%);
 }
 
 body.video-cue-balloons .video-cue-balloons {
@@ -222,13 +220,13 @@ body.video-cue-paused .video-shell::before {
 
 @keyframes video-balloon-sweep {
   0% {
-    transform: translate3d(calc(112vw + var(--offset)), var(--drift-start), 0) rotate(var(--tilt)) scale(0.86);
+    transform: translate3d(118vw, var(--drift-start), 0) rotate(-10deg) scale(0.86);
   }
   46% {
-    transform: translate3d(48vw, var(--drift-mid), 0) rotate(calc(var(--tilt) * -0.45)) scale(1);
+    transform: translate3d(48vw, var(--drift-mid), 0) rotate(6deg) scale(1);
   }
   100% {
-    transform: translate3d(-30vw, var(--drift-end), 0) rotate(calc(var(--tilt) * 0.7)) scale(0.9);
+    transform: translate3d(-30vw, var(--drift-end), 0) rotate(-4deg) scale(0.9);
   }
 }
 
